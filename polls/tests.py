@@ -36,6 +36,50 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
+    def test_can_vote_before_pub_date(self):
+        """
+        can_vote() returns False for voting before pub_date
+        """
+        pub_date = timezone.now() + datetime.timedelta(days=15)
+        end_date = timezone.now() + datetime.timedelta(days=30)
+        future_question = Question(pub_date=pub_date, end_date=end_date)
+        self.assertIs(future_question.can_vote(), False)
+
+    def test_can_vote_exactly_pub_date(self):
+        """
+        can_vote() returns True for voting exactly pub_date
+        """
+        pub_date = timezone.now()
+        end_date = timezone.now() + datetime.timedelta(days=30)
+        new_question = Question(pub_date=pub_date, end_date=end_date)
+        self.assertIs(new_question.can_vote(), True)
+
+    def test_can_vote_exactly_end_date(self):
+        """
+        can_vote() returns True for voting exactly end_date
+        """
+        pub_date = timezone.now() - datetime.timedelta(days=30)
+        end_date = timezone.now()
+        question = Question(pub_date=pub_date, end_date=end_date)
+        self.assertIs(question.can_vote(), True)
+
+    def test_can_vote_after_end_date(self):
+        """
+        can_vote() returns False for voting after end_date
+        """
+        pub_date = timezone.now() - datetime.timedelta(days=30)
+        end_date = timezone.now() - datetime.timedelta(days=15)
+        old_question = Question(pub_date=pub_date, end_date=end_date)
+        self.assertIs(old_question.can_vote(), False)
+
+    def test_can_vote_with_no_end_date(self):
+        """
+        can_vote() returns True for voting with no end_date
+        """
+        pub_date = timezone.now() - datetime.timedelta(days=30)
+        question = Question(pub_date=pub_date)
+        self.assertIs(question.can_vote(), True)
+
 
 def create_question(question_text, days):
     """
