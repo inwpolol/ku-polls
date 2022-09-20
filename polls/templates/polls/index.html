@@ -7,16 +7,12 @@
         border: 0;
     }
 </style>
-<div class="top">
-    <span>
-        <div class="align-right">
-            {% if user.is_authenticated %}
-                {{ user.username }} <a href="/accounts/logout/"><button type="button">Logout</button></a>
-            {% else %}
-                <a href="/accounts/login/"><button type="button">Login</button></a>
-            {% endif %}
-        </div>
-    </span>
+<div class="align-right">
+    {% if user.is_authenticated %}
+        {{ user.username }} <a href="/accounts/logout/"><button type="button">Logout</button></a>
+    {% else %}
+        <a href="/accounts/login/"><button type="button">Login</button></a>
+    {% endif %}
 </div>
 <h3> KU POLLS </h3>
 </head>
