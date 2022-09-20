@@ -1,13 +1,15 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .models import Choice, Question
 
 
 class IndexView(generic.ListView):
+    """Class based view for viewing list of questions."""
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -22,6 +24,7 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """Class based view for viewing a poll."""
     model = Question
     template_name = 'polls/detail.html'
 
@@ -37,8 +40,13 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
+@login_required
 def vote(request, question_id):
+    """Vote for a choice on a question (poll)."""
     question = get_object_or_404(Question, pk=question_id)
+    user = request.user
+    if not user.is_authenticated:
+       return redirect('login')
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):

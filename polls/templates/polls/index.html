@@ -1,19 +1,49 @@
+<head>
 {% load static %}
-
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-
-<legend><h3> KU POLLS </h3></legend>
-
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        {% if question.can_vote %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> <a href="{% url 'polls:results' question.id %}">result</a></li>
-        {% else %}
-            <li><a >{{ question.question_text }}</a> <a href="{% url 'polls:results' question.id %}">result</a></li>
-        {% endif %}    
-    {% endfor %}  
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+<style>
+    .align-right {
+        text-align: right;
+        border: 0;
+    }
+</style>
+<div class="top">
+    <span>
+        <div class="align-right">
+            {% if user.is_authenticated %}
+                {{ user.username }} <a href="/accounts/logout/"><button type="button">Logout</button></a>
+            {% else %}
+                <a href="/accounts/login/"><button type="button">Login</button></a>
+            {% endif %}
+        </div>
+    </span>
+</div>
+<h3> KU POLLS </h3>
+</head>
+<body>
+<div class="container">
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            {% if question.can_vote %}
+                <br>
+                <li>
+                    <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a> 
+                    <a href="{% url 'polls:results' question.id %}"><button type="button">result</button></a>
+                </li>
+                <br>
+            {% else %}
+                <br>
+                <li>
+                    <a >{{ question.question_text }}</a> 
+                    <a href="{% url 'polls:results' question.id %}"><button type="button">result</button></a>
+                </li>
+                <br>
+            {% endif %}    
+        {% endfor %}  
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+</div>
+</body>
