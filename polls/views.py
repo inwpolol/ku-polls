@@ -57,7 +57,7 @@ def vote(request, question_id):
         })
     else:
         if Vote.objects.filter(question=question, user=user).exists():
-            vote = Vote.objects.get(user=user)
+            vote = Vote.objects.get(user=user, choice__in=question.choice_set.all())
             vote.choice = selected_choice
             vote.save()
         else:
