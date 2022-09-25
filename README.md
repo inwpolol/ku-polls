@@ -6,31 +6,45 @@ This application is part of [the Individual Software Process](https://cpske.gith
 
 ## How to Install and Run
 
-Install Django.
+1. Clone this github repository.
+2. Change file mysite/sample.env to mysite/.env
+3. Create a virtual environment.
+* create the virtual env in "env/", only 1 time.
+    ```
+    python -m venv env
+    ```
+* start the virtual env in bash or zsh.
+    ```
+    . env/bin/activate
+    ```
+* install required packages.
+    ```
+    pip install -r requirements.txt
+    ```
 
-* MacOS
+4. Run migrations.
     ```
-    python -m pip install Django
-    ```
-
-* Windows
-    ```
-    py -m pip install Django
+    python manage.py migrate
     ```
 
-Run server.
-* MacOS
+5. Install data from the data fixtures.
+    ```
+    python manage.py loaddata data/polls.json data/users.json
+    ```
+
+6. Run server.
     ```
     python manage.py runserver
     ```
 
-* Windows
-    ```
-    py manage.py runserver
-    ```
+7. Open web application on
+http://localhost:8000/polls/ or control+click at suggestion url http://127.0.0.1:8000/
 
-Open on.
-http://localhost:8000/polls/
+* You can create admin account to manage your polls by
+    ```
+    python manage.py createsuperuser
+    ```
+    and go to http://localhost:8000/admin
 
 ## User Demo
 
