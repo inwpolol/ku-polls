@@ -27,14 +27,14 @@ class Question(models.Model):
         if self.end_date:
             return self.end_date + datetime.timedelta(seconds=1) >= now >= self.pub_date
         return self.is_published()
-    
+
     def __str__(self):
         return self.question_text
 
 
 class Choice(models.Model):
     """
-    Create model of Choice that consist of choice text and a vote tally. 
+    Create model of Choice that consist of choice text and a vote tally.
     Each Choice is associated with a Question.
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
