@@ -15,14 +15,23 @@ class Question(models.Model):
     end_date = models.DateTimeField('end date', null=True, blank=True)
 
     def was_published_recently(self):
+        """
+        return True if question was published less than 1 day.
+        """
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def is_published(self):
+        """
+        return True if question was published.
+        """
         now = timezone.now()
         return now >= self.pub_date
 
     def can_vote(self):
+        """
+        return True if question is published and not expired.
+        """
         now = timezone.now()
         if self.end_date:
             return self.end_date + datetime.timedelta(seconds=1) >= now >= self.pub_date
@@ -49,6 +58,10 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
+    """
+    Create model of Vote that tracking User, Question and Choice.
+    To know who has already vote.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
