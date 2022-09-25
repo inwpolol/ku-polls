@@ -105,50 +105,5 @@
     "question": 3,
     "choice_text": "5"
   }
-},
-{
-  "model": "polls.vote",
-  "pk": 1,
-  "fields": {
-    "user": 1,
-    "question": 3,
-    "choice": 7
-  }
-},
-{
-  "model": "polls.vote",
-  "pk": 2,
-  "fields": {
-    "user": 2,
-    "question": 3,
-    "choice": 6
-  }
-},
-{
-  "model": "polls.vote",
-  "pk": 3,
-  "fields": {
-    "user": 3,
-    "question": 3,
-    "choice": 6
-  }
-},
-{
-  "model": "polls.vote",
-  "pk": 4,
-  "fields": {
-    "user": 2,
-    "question": 2,
-    "choice": 4
-  }
-},
-{
-  "model": "polls.vote",
-  "pk": 5,
-  "fields": {
-    "user": 2,
-    "question": 1,
-    "choice": 1
-  }
 }
 ]
