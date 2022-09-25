@@ -40,11 +40,11 @@ This application is part of [the Individual Software Process](https://cpske.gith
 7. Open web application on
 http://localhost:8000/polls/ or control+click at suggestion url http://127.0.0.1:8000/
 
-* You can create admin account to manage your polls by
-    ```
-    python manage.py createsuperuser
-    ```
-    and go to http://localhost:8000/admin
+Note: You can create admin account to manage your polls by
+```
+python manage.py createsuperuser
+```
+and go to http://localhost:8000/admin
 
 ## User Demo
 
