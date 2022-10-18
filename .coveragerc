@@ -6,4 +6,3 @@ omit =
         polls/migrations/*
         mysite/*
         */__init__.py
-        manage.py
